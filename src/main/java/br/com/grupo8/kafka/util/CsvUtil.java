@@ -8,6 +8,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -38,26 +39,32 @@ public class CsvUtil {
 
     public static void baixaArquivo(String bucket, String arquivo, String saida) throws IOException {
 
-        S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(credentialsProvider).build();
+        try {
+            S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(credentialsProvider).build();
 
-        GetObjectRequest request = GetObjectRequest.builder()
-                .bucket(bucket)
-                .key(arquivo)
-                .build();
+            GetObjectRequest request = GetObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(arquivo)
+                    .build();
 
-        ResponseInputStream<GetObjectResponse> responseResponseInputStream = client.getObject(request);
+            ResponseInputStream<GetObjectResponse> responseResponseInputStream = client.getObject(request);
 
-        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(saida));
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(saida));
 
-        byte[] buffer = new  byte[4096];
-        int bytesRead = -1;
+            byte[] buffer = new  byte[4096];
+            int bytesRead = -1;
 
-        while ((bytesRead = responseResponseInputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
+            while ((bytesRead = responseResponseInputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            responseResponseInputStream.close();
+            outputStream.close();
+        } catch (NoSuchKeyException e){
+            System.out.println("Arquivo " + arquivo + " nao encontrado no bucket");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        responseResponseInputStream.close();
-        outputStream.close();
     }
 
     public static final AwsCredentialsProvider credentialsProvider = new AwsCredentialsProvider() {
