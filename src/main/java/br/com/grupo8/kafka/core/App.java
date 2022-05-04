@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -35,12 +36,16 @@ public class App {
 
         while (true){
             ConsumerRecords<String, String> registros = consumer.poll(Duration.ofMillis(250));
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
             for(ConsumerRecord<String, String> registro : registros) {
                 String arquivo = registro.value();
                 String endereco = "/tmp/"+arquivo;
-                CsvUtil.baixaArquivo(bucket, arquivo, endereco);
-                serviceCsv.salvaProdutosCsv(endereco);
+                try {
+                    CsvUtil.baixaArquivo(bucket, arquivo, endereco);
+                    serviceCsv.salvaProdutosCsv(endereco);
+                }catch (NoSuchKeyException ex) {
+                    System.out.println("Nao foi possivel localizar o arquivo: " + arquivo);
+                }
                  }
         }
     }

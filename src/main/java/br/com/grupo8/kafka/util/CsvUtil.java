@@ -37,34 +37,30 @@ public class CsvUtil {
         }
     }
 
-    public static void baixaArquivo(String bucket, String arquivo, String saida) throws IOException {
+    public static void baixaArquivo(String bucket, String arquivo, String saida) throws IOException, NoSuchKeyException {
 
-        try {
-            S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(credentialsProvider).build();
 
-            GetObjectRequest request = GetObjectRequest.builder()
-                    .bucket(bucket)
-                    .key(arquivo)
-                    .build();
+        S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(credentialsProvider).build();
 
-            ResponseInputStream<GetObjectResponse> responseResponseInputStream = client.getObject(request);
+        GetObjectRequest request = GetObjectRequest.builder()
+                .bucket(bucket)
+                .key(arquivo)
+                .build();
 
-            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(saida));
+        ResponseInputStream<GetObjectResponse> responseResponseInputStream = client.getObject(request);
 
-            byte[] buffer = new  byte[4096];
-            int bytesRead = -1;
+        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(saida));
 
-            while ((bytesRead = responseResponseInputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
+        byte[] buffer = new  byte[4096];
+        int bytesRead = -1;
 
-            responseResponseInputStream.close();
-            outputStream.close();
-        } catch (NoSuchKeyException e){
-            System.out.println("Arquivo " + arquivo + " nao encontrado no bucket");
-        } catch (Exception e) {
-            e.printStackTrace();
+        while ((bytesRead = responseResponseInputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
         }
+
+        responseResponseInputStream.close();
+        outputStream.close();
+
     }
 
     public static final AwsCredentialsProvider credentialsProvider = new AwsCredentialsProvider() {
