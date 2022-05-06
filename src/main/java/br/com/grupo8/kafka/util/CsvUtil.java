@@ -37,10 +37,8 @@ public class CsvUtil {
         }
     }
 
-    public static void baixaArquivo(String bucket, String arquivo, String saida) throws IOException, NoSuchKeyException {
+    public static void baixaArquivo(S3Client client, String bucket, String arquivo, String saida) throws IOException, NoSuchKeyException {
 
-
-        S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(credentialsProvider).build();
 
         GetObjectRequest request = GetObjectRequest.builder()
                 .bucket(bucket)
@@ -63,20 +61,4 @@ public class CsvUtil {
 
     }
 
-    public static final AwsCredentialsProvider credentialsProvider = new AwsCredentialsProvider() {
-        @Override
-        public AwsCredentials resolveCredentials() {
-            return new AwsCredentials() {
-                @Override
-                public String accessKeyId() {
-                    return System.getenv("AWS_ACCESS_KEY");
-                }
-
-                @Override
-                public String secretAccessKey() {
-                    return System.getenv("AWS_SECRET_KEY");
-                }
-            };
-        }
-    };
 }
