@@ -1,8 +1,9 @@
-# java-server-aws-kafka
-
 <h1>
   SERVIDOR KAFKA
 </h1>
+![image](https://user-images.githubusercontent.com/81285428/167132758-83922490-389d-4d17-bfdf-48362928c3fb.png)
+![image](https://user-images.githubusercontent.com/81285428/167133722-6ccbf8fc-c49f-42d8-b7e1-c0901ba1a6f9.png)
+
 
 ## 💻 Sobre o projeto
 
@@ -21,8 +22,7 @@ A Bolinho de Java Corp teve como desafio desenvolver uma aplicação que faça o
 - [Java](https://www.java.com/pt-BR/)
 - [Spring](https://spring.io/)
 - [PostgreSQL](https://www.postgresql.org/)
-- ![image](https://user-images.githubusercontent.com/81285428/167132758-83922490-389d-4d17-bfdf-48362928c3fb.png)
-[Amazon EC2](https://aws.amazon.com/pt/ec2/)
+- [Amazon EC2](https://aws.amazon.com/pt/ec2/)
 - [Amazon Kafka](https://aws.amazon.com/pt/msk/)
 - [Amazon S3](https://aws.amazon.com/pt/s3/)
 - [Amazon RDS](https://aws.amazon.com/pt/rds/)
