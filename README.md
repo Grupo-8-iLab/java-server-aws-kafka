@@ -1,8 +1,8 @@
 <h1>
   SERVIDOR KAFKA
 </h1>
-![image](https://user-images.githubusercontent.com/81285428/167132758-83922490-389d-4d17-bfdf-48362928c3fb.png)
-![image](https://user-images.githubusercontent.com/81285428/167133722-6ccbf8fc-c49f-42d8-b7e1-c0901ba1a6f9.png)
+![image](https://user-images.githubusercontent.com/81285428/167133899-256b5df4-cfe9-4212-bddc-6054939d80c4.png)
+
 
 
 ## 💻 Sobre o projeto
