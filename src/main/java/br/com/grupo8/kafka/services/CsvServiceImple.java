@@ -22,7 +22,6 @@ public class CsvServiceImple implements ICsvService{
     @Override
     public void salvaProdutosCsv(String aquivo) {
         ArrayList<String[]> dados = CsvUtil.lerCsvProdutos(aquivo);
-        System.out.println("Dados: " + dados);
         for (String[] row : dados) {
             Produto p = new Produto();
             p.setNome(row[0]);

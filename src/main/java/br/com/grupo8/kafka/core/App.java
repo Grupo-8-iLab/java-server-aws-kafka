@@ -40,8 +40,7 @@ public class App {
         S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(credentialsProvider).build();
 
         while (true){
-            ConsumerRecords<String, String> registros = consumer.poll(Duration.ofMillis(250));
-            //Thread.sleep(1000);
+            ConsumerRecords<String, String> registros = consumer.poll(Duration.ofMillis(100));
             for(ConsumerRecord<String, String> registro : registros) {
                 String arquivo = registro.value();
                 String endereco = "/tmp/"+arquivo;
@@ -49,7 +48,13 @@ public class App {
                     CsvUtil.baixaArquivo(client, bucket, arquivo, endereco);
                     serviceCsv.salvaProdutosCsv(endereco);
                 }catch (NoSuchKeyException ex) {
-                    System.out.println("Nao foi possivel localizar o arquivo: " + arquivo);
+                    System.err.println("Nao foi possivel localizar o arquivo: " + arquivo);
+                }catch (ArrayIndexOutOfBoundsException e) {
+                    System.err.println("O arquivo "+arquivo+" possui um número de colunas inválido");
+                }catch (NumberFormatException e) {
+                    System.err.println("Revise a coluna de qauntidade do produto no aquivo "+arquivo);
+                }catch (Exception e) {
+                    e.printStackTrace();
                 }
                  }
         }
