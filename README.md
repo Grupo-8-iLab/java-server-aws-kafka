@@ -1,5 +1,5 @@
 <h1>
-  SERVIDOR KAFKA
+  CONSUMER KAFKA
 </h1>
 
 ## 💻 Sobre o projeto
@@ -30,3 +30,6 @@ A Bolinho de Java Corp teve como desafio desenvolver uma aplicação que faça o
 - Baixar arquivos do Bucket
 - Salvar o conteúdo dos arquivos no RDS
 
+## 📄 Licença
+
+Este projeto está sob a licença de Bolinho de Java Corp.
