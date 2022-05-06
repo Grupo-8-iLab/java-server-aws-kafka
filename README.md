@@ -20,7 +20,7 @@ A Bolinho de Java Corp teve como desafio desenvolver uma aplicação que faça o
 - [Spring](https://spring.io/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Amazon EC2](https://aws.amazon.com/pt/ec2/)
-- [Amazon Kafka](https://aws.amazon.com/pt/msk/)
+- [Kafka](https://aws.amazon.com/pt/msk/)
 - [Amazon S3](https://aws.amazon.com/pt/s3/)
 - [Amazon RDS](https://aws.amazon.com/pt/rds/)
 
