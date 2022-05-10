@@ -4,9 +4,6 @@ import br.com.grupo8.kafka.dao.ProdutosDAO;
 import br.com.grupo8.kafka.models.Produto;
 import br.com.grupo8.kafka.util.CsvUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -26,7 +23,7 @@ public class CsvServiceImple implements ICsvService{
             Produto p = new Produto();
             p.setNome(row[0]);
             p.setDescricao(row[1]);
-            p.setQuantidade(Integer.parseInt(row[2]));
+            p.setValor(Double.parseDouble(row[2]));
             p.setDataCadastro(Timestamp.from(now()));
             prodDao.save(p);
         }
