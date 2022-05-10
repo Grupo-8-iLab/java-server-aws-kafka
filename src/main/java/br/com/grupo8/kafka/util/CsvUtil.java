@@ -1,10 +1,6 @@
 package br.com.grupo8.kafka.util;
 
-
-import software.amazon.awssdk.auth.credentials.AwsCredentials;
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -26,9 +22,9 @@ public class CsvUtil {
 
                 String[] row = line.split(";");
                 dadosProdutos.add(row);
-
             }
 
+            reader.close();
             return dadosProdutos;
         }
         catch (Exception e) {
@@ -38,7 +34,6 @@ public class CsvUtil {
     }
 
     public static void baixaArquivo(S3Client client, String bucket, String arquivo, String saida) throws IOException, NoSuchKeyException {
-
 
         GetObjectRequest request = GetObjectRequest.builder()
                 .bucket(bucket)
@@ -58,7 +53,5 @@ public class CsvUtil {
 
         responseResponseInputStream.close();
         outputStream.close();
-
     }
-
 }
